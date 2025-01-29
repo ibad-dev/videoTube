@@ -1,0 +1,12 @@
+/.vscode
+/node_modeules
+./dist
+
+*.env
+.env
+.env.*
+readme.md
+src/readme.md
+readme.md.*
+*readme.md
+src/README.md
