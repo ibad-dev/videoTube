@@ -104,7 +104,9 @@ const getUserChannelSubscribers = asyncHandler(async (req, res) => {
   };
 
   // Step 5: Return the response
-  return res.status(200).json(new ApiResponse(200, response, "Subscribers fetched successfully"));
+  return res
+    .status(200)
+    .json(new ApiResponse(200, response, "Subscribers fetched successfully"));
 });
 
 // controller to return channel list to which user has subscribed
@@ -123,22 +125,22 @@ const getUserSubscriptions = asyncHandler(async (req, res) => {
   // Find the channel (user) by ID to get its name and avatar
   const channel = await User.findById(channelId).select("username avatar");
 
-
   if (!channel) {
     throw new ApiError(404, "Channel not found");
   }
 
   // Find all channels this user has subscribed to
-  const subscriptions = await Subscription.find({ subscriber: channelId })
-    .populate({
-      path: "channel", // Get the subscribed channels' data
-      select: "username avatar",
-    });
+  const subscriptions = await Subscription.find({
+    subscriber: channelId,
+  }).populate({
+    path: "channel", // Get the subscribed channels' data
+    select: "username avatar",
+  });
 
   // Format the response to include the subscribed channels' username & avatar
   const subscribedChannels = subscriptions.map((sub) => ({
     username: sub.channel.username,
-    avatar: sub.channel.avatar
+    avatar: sub.channel.avatar,
   }));
 
   // Send response
@@ -154,14 +156,5 @@ const getUserSubscriptions = asyncHandler(async (req, res) => {
     message: "Subscribed channels fetched successfully",
   });
 });
-
-
-
-
-
-
-
-
-
 
 export { toggleSubscription, getUserChannelSubscribers, getUserSubscriptions };
