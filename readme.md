@@ -1,4 +1,4 @@
-# VidTube - A Video Sharing Platform
+# VideoTube - A Video Sharing Platform
 
 ## Overview
 
